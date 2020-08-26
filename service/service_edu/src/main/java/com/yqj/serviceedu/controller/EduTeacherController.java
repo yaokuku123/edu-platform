@@ -1,8 +1,10 @@
 package com.yqj.serviceedu.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yqj.commonutils.R;
 import com.yqj.serviceedu.entity.EduTeacher;
+import com.yqj.serviceedu.entity.vo.TeacherQuery;
 import com.yqj.serviceedu.service.EduTeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,6 +49,22 @@ public class EduTeacherController {
         }else {
             return R.error();
         }
+    }
+
+    //分页查询讲师记录
+    @ApiOperation(value = "分页讲师列表")
+    @PostMapping("pageTeacher/{current}/{limit}")
+    public R pageTeacher(@ApiParam(name = "current", value = "当前页码", required = true)
+                            @PathVariable long current,
+                         @ApiParam(name = "limit", value = "每页记录数", required = true)
+                            @PathVariable long limit,
+                         @ApiParam(name = "teacherQuery", value = "查询对象", required = false)
+                            @RequestBody(required = false) TeacherQuery teacherQuery){
+        Page<EduTeacher> pageTeacher = new Page<>(current,limit);
+        teacherService.pageQuery(pageTeacher,teacherQuery);
+        long total = pageTeacher.getTotal();
+        List<EduTeacher> records = pageTeacher.getRecords();
+        return R.ok().data("total",total).data("rows",records);
     }
 
 }
