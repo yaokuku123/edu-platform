@@ -14,10 +14,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    //全局异常处理
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public R error(Exception e){
         e.printStackTrace();
-        return R.error().message("全局处理异常");
+        return R.error().message("全局异常处理");
+    }
+
+    //特殊异常处理
+    @ExceptionHandler(ArithmeticException.class)
+    @ResponseBody
+    public R error(ArithmeticException e){
+        e.printStackTrace();
+        return R.error().message("特殊异常处理");
+    }
+
+    //自定义异常处理
+    @ExceptionHandler(MySystemException.class)
+    @ResponseBody
+    public R error(MySystemException e){
+        e.printStackTrace();
+        return R.error().code(e.getCode()).message(e.getMsg());
     }
 }
