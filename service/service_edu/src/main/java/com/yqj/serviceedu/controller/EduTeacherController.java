@@ -67,5 +67,43 @@ public class EduTeacherController {
         return R.ok().data("total",total).data("rows",records);
     }
 
+    //新增讲师
+    @ApiOperation(value = "新增讲师")
+    @PostMapping("addTeacher")
+    public R addTeacher(@ApiParam(name = "teacher", value = "讲师对象", required = true)
+                            @RequestBody EduTeacher teacher){
+        boolean save = teacherService.save(teacher);
+        if (save){
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
+    //根据id查询讲师
+    @ApiOperation(value = "根据ID查询讲师")
+    @GetMapping("{id}")
+    public R getTeacher(@ApiParam(name = "id", value = "讲师ID", required = true)
+                            @PathVariable String id){
+        EduTeacher teacher = teacherService.getById(id);
+        return R.ok().data("teacher",teacher);
+    }
+
+    //根据id更新讲师
+    @ApiOperation(value = "根据ID修改讲师")
+    @PutMapping("{id}")
+    public R updateTeacher(@ApiParam(name = "id", value = "讲师ID", required = true)
+                               @PathVariable String id,
+                           @ApiParam(name = "teacher", value = "讲师对象", required = true)
+                                @RequestBody EduTeacher teacher){
+        teacher.setId(id);
+        boolean update = teacherService.updateById(teacher);
+        if (update){
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
 }
 
