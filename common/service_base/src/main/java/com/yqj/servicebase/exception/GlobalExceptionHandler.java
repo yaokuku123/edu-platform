@@ -1,6 +1,7 @@
 package com.yqj.servicebase.exception;
 
 import com.yqj.commonutils.R;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Date: 2020/8/26 14:21
  */
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     //全局异常处理
@@ -35,6 +37,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public R error(MySystemException e){
         e.printStackTrace();
+        log.error(e.getMessage());
         return R.error().code(e.getCode()).message(e.getMsg());
     }
 }
