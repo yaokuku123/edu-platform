@@ -25,6 +25,9 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
     public void pageQuery(Page<EduTeacher> page, TeacherQuery teacherQuery) {
         QueryWrapper<EduTeacher> wrapper = new QueryWrapper<>();
 
+        //排序
+        wrapper.orderByDesc("gmt_create");
+
         if (teacherQuery == null){
             baseMapper.selectPage(page, wrapper);
             return;
@@ -47,6 +50,7 @@ public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeac
         if(!StringUtils.isEmpty(end)){
             wrapper.le("gmt_create",end);
         }
+
         baseMapper.selectPage(page,wrapper);
     }
 }
