@@ -4,10 +4,12 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.yqj.oss.service.OssService;
 import com.yqj.oss.utils.OssPropertiesUtils;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.UUID;
 
 /**
  * Copyright(C),2019-2020,XXX公司
@@ -35,6 +37,13 @@ public class OssServiceImpl implements OssService {
             InputStream inputStream = file.getInputStream();
             // 上传文件 参数 bucket名称，文件名称，文件输入流
             String fileName = file.getOriginalFilename();
+            // 拼接uuid
+            String uuid = UUID.randomUUID().toString().replaceAll("-","");
+            // 拼接以时间年月日为基础的文件夹
+            String datePath = new DateTime().toString("yyyy/MM/dd");
+            // 拼接
+            fileName = datePath + "/" + uuid + fileName;
+
             ossClient.putObject(bucketName, fileName, inputStream);
             // 关闭OSSClient。
             ossClient.shutdown();
