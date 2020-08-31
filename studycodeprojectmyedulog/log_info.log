@@ -1,0 +1,21 @@
+2020-08-26 16:40:26.000 [main] INFO  com.yqj.serviceedu.EduApplication - Starting EduApplication on LAPTOP-JUBVGF02 with PID 4300 (D:\study\code\project\myedu\edu_parent\service\service_edu\target\classes started by yorick in D:\study\code\project\myedu\edu_parent)
+2020-08-26 16:40:26.005 [main] INFO  com.yqj.serviceedu.EduApplication - The following profiles are active: dev
+2020-08-26 16:40:27.696 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-08-26 16:40:27.700 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-08-26 16:40:27.744 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23ms. Found 0 Redis repository interfaces.
+2020-08-26 16:40:28.257 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8001 (http)
+2020-08-26 16:40:28.264 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8001"]
+2020-08-26 16:40:28.265 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-08-26 16:40:28.265 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-08-26 16:40:28.361 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-08-26 16:40:28.361 [main] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2176 ms
+2020-08-26 16:40:28.508 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2020-08-26 16:40:28.678 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2020-08-26 16:40:29.025 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-08-26 16:40:29.101 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-08-26 16:40:29.427 [main] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Context refreshed
+2020-08-26 16:40:29.439 [main] INFO  s.d.s.web.plugins.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2020-08-26 16:40:29.475 [main] INFO  s.d.spring.web.scanners.ApiListingReferenceScanner - Scanning for api listing references
+2020-08-26 16:40:29.599 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8001"]
+2020-08-26 16:40:29.622 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8001 (http) with context path ''
+2020-08-26 16:40:29.625 [main] INFO  com.yqj.serviceedu.EduApplication - Started EduApplication in 4.676 seconds (JVM running for 7.028)
