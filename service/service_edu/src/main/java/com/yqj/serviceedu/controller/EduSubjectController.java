@@ -2,14 +2,14 @@ package com.yqj.serviceedu.controller;
 
 
 import com.yqj.commonutils.R;
+import com.yqj.serviceedu.entity.subject.OneSubject;
 import com.yqj.serviceedu.service.EduSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -31,6 +31,13 @@ public class EduSubjectController {
     public R addSubject(MultipartFile file){
         subjectService.addSubject(file);
         return R.ok();
+    }
+
+    //获取课程分类列表
+    @GetMapping("getSubjectList")
+    public R getSubjectList(){
+        List<OneSubject> list = subjectService.getSubjectList();
+        return R.ok().data("list",list);
     }
 }
 
