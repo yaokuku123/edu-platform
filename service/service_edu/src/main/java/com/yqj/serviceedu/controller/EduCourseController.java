@@ -26,8 +26,8 @@ public class EduCourseController {
     //添加课程基本信息
     @PostMapping("addCourseInfo")
     public R addCourseInfo(@RequestBody CourseInfo courseInfo){
-        courseService.addCourseInfo(courseInfo);
-        return R.ok();
+        String cid = courseService.addCourseInfo(courseInfo);
+        return R.ok().data("courseId",cid);
     }
 }
 

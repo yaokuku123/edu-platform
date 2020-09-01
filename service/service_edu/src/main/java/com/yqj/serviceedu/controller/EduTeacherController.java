@@ -36,11 +36,6 @@ public class EduTeacherController {
     @ApiOperation(value = "所有讲师列表")
     @GetMapping("findAll")
     public R findAll(){
-        try {
-            int sum = 10/0;
-        } catch (Exception e) {
-            throw new MySystemException(20001,"自定义异常处理");
-        }
         List<EduTeacher> list = teacherService.list(null);
         return R.ok().data("items",list);
     }

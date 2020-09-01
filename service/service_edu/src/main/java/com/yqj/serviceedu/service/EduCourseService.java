@@ -14,5 +14,5 @@ import com.yqj.serviceedu.entity.vo.CourseInfo;
  */
 public interface EduCourseService extends IService<EduCourse> {
     //添加课程基本信息
-    void addCourseInfo(CourseInfo courseInfo);
+    String addCourseInfo(CourseInfo courseInfo);
 }
