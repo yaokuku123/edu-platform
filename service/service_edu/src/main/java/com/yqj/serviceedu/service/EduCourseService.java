@@ -15,4 +15,10 @@ import com.yqj.serviceedu.entity.vo.CourseInfo;
 public interface EduCourseService extends IService<EduCourse> {
     //添加课程基本信息
     String addCourseInfo(CourseInfo courseInfo);
+
+    //根据id查询课程
+    CourseInfo getCourseById(String courseId);
+
+    //修改课程信息
+    void updateCourse(CourseInfo courseInfo);
 }

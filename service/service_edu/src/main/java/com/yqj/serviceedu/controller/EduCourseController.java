@@ -29,5 +29,19 @@ public class EduCourseController {
         String cid = courseService.addCourseInfo(courseInfo);
         return R.ok().data("courseId",cid);
     }
+
+    //根据id查询课程
+    @GetMapping("getCourse/{courseId}")
+    public R getCourse(@PathVariable String courseId){
+        CourseInfo courseInfo = courseService.getCourseById(courseId);
+        return R.ok().data("courseInfo",courseInfo);
+    }
+
+    //修改课程信息
+    @PostMapping("updateCourse")
+    public R updateCourse(@RequestBody CourseInfo courseInfo){
+        courseService.updateCourse(courseInfo);
+        return R.ok();
+    }
 }
 
