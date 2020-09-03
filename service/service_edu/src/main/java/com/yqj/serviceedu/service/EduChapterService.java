@@ -17,4 +17,7 @@ import java.util.List;
 public interface EduChapterService extends IService<EduChapter> {
     //获得章节和小节的全部数据
     List<ChapterVo> getChapterVideo(String courseId);
+
+    //若小节数据为空则删除章节数据
+    boolean deleteChapter(String chapterId);
 }

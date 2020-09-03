@@ -1,6 +1,7 @@
 package com.yqj.serviceedu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.yqj.servicebase.exception.MySystemException;
 import com.yqj.serviceedu.entity.EduChapter;
 import com.yqj.serviceedu.entity.EduVideo;
 import com.yqj.serviceedu.entity.chapter.ChapterVo;
@@ -61,5 +62,22 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
             finalList.add(chapterVo);
         }
         return finalList;
+    }
+
+    //若小节数据为空则删除章节数据
+    @Override
+    public boolean deleteChapter(String chapterId) {
+        //根据章节id查询小节信息
+        QueryWrapper<EduVideo> wrapperVideo = new QueryWrapper<>();
+        wrapperVideo.eq("chapter_id",chapterId);
+        int count = videoService.count(wrapperVideo);
+        if (count == 0){
+            //当前章节没有小节，可以删除
+            int result = baseMapper.deleteById(chapterId);
+            return result>0;
+        }else {
+            //当前章节有小节，不能删除
+            throw new MySystemException(20001,"有小节数据不能删除");
+        }
     }
 }
