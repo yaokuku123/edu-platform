@@ -1,17 +1,23 @@
 package com.yqj.serviceedu.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yqj.servicebase.exception.MySystemException;
 import com.yqj.serviceedu.entity.EduCourse;
 import com.yqj.serviceedu.entity.EduCourseDescription;
 import com.yqj.serviceedu.entity.vo.CourseInfo;
 import com.yqj.serviceedu.entity.vo.CoursePublishVo;
+import com.yqj.serviceedu.entity.vo.CourseQuery;
 import com.yqj.serviceedu.mapper.EduCourseMapper;
+import com.yqj.serviceedu.service.EduChapterService;
 import com.yqj.serviceedu.service.EduCourseDescriptionService;
 import com.yqj.serviceedu.service.EduCourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yqj.serviceedu.service.EduVideoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -27,6 +33,12 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     //注入课程描述的service
     @Autowired
     private EduCourseDescriptionService descriptionService;
+
+    @Autowired
+    private EduVideoService videoService;
+
+    @Autowired
+    private EduChapterService chapterService;
 
     //添加课程基本信息
     @Override
@@ -87,5 +99,38 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     public CoursePublishVo publishCourseInfo(String id) {
         CoursePublishVo coursePublishInfo = baseMapper.getCoursePublishInfo(id);
         return coursePublishInfo;
+    }
+
+    @Override
+    public void pageQuery(Page<EduCourse> pageCourse, CourseQuery courseQuery) {
+        QueryWrapper<EduCourse> wrapper = new QueryWrapper<>();
+
+        wrapper.orderByDesc("gmt_create");
+        if(courseQuery==null){
+            baseMapper.selectPage(pageCourse,wrapper);
+            return;
+        }
+        String title = courseQuery.getTitle();
+        String status = courseQuery.getStatus();
+        if(!StringUtils.isEmpty(title)){
+            wrapper.like("title",title);
+        }
+        if(!StringUtils.isEmpty(status)){
+            wrapper.eq("status",status);
+        }
+        baseMapper.selectPage(pageCourse,wrapper);
+    }
+
+    //根据课程id删除课程信息
+    @Override
+    public void removeCourse(String courseId) {
+        //删除小节信息
+        videoService.removeVideo(courseId);
+        //删除章节信息
+        chapterService.removeChapter(courseId);
+        //删除课程描述信息
+        descriptionService.removeById(courseId);
+        //删除课程基本信息
+        baseMapper.deleteById(courseId);
     }
 }

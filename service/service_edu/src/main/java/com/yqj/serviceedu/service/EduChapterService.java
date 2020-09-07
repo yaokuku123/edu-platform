@@ -20,4 +20,7 @@ public interface EduChapterService extends IService<EduChapter> {
 
     //若小节数据为空则删除章节数据
     boolean deleteChapter(String chapterId);
+
+    //删除章节信息
+    void removeChapter(String courseId);
 }

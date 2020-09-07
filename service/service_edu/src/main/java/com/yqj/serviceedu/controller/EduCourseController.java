@@ -5,9 +5,13 @@ import com.yqj.commonutils.R;
 import com.yqj.serviceedu.entity.EduCourse;
 import com.yqj.serviceedu.entity.vo.CourseInfo;
 import com.yqj.serviceedu.entity.vo.CoursePublishVo;
+import com.yqj.serviceedu.entity.vo.CourseQuery;
 import com.yqj.serviceedu.service.EduCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -60,6 +64,24 @@ public class EduCourseController {
         eduCourse.setId(id);
         eduCourse.setStatus("Normal"); //表示课程发布
         courseService.updateById(eduCourse);
+        return R.ok();
+    }
+
+    //课程列表分页查询
+    @PostMapping("pageCourse/{current}/{limit}")
+    public R pageCourse(@PathVariable long current, @PathVariable long limit,
+                        @RequestBody(required = false) CourseQuery courseQuery){
+        Page<EduCourse> pageCourse = new Page<>(current, limit);
+        courseService.pageQuery(pageCourse,courseQuery);
+        long total = pageCourse.getTotal();
+        List<EduCourse> courseList = pageCourse.getRecords();
+        return R.ok().data("total",total).data("rows",courseList);
+    }
+
+    //根据课程id删除课程信息
+    @DeleteMapping("{courseId}")
+    public R deleteCourse(@PathVariable String courseId){
+        courseService.removeCourse(courseId);
         return R.ok();
     }
 }

@@ -80,4 +80,12 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
             throw new MySystemException(20001,"有小节数据不能删除");
         }
     }
+
+    //删除章节信息
+    @Override
+    public void removeChapter(String courseId) {
+        QueryWrapper<EduChapter> wrapper = new QueryWrapper<>();
+        wrapper.eq("course_id",courseId);
+        baseMapper.delete(wrapper);
+    }
 }
