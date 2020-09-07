@@ -4,6 +4,7 @@ import com.yqj.servicebase.exception.MySystemException;
 import com.yqj.serviceedu.entity.EduCourse;
 import com.yqj.serviceedu.entity.EduCourseDescription;
 import com.yqj.serviceedu.entity.vo.CourseInfo;
+import com.yqj.serviceedu.entity.vo.CoursePublishVo;
 import com.yqj.serviceedu.mapper.EduCourseMapper;
 import com.yqj.serviceedu.service.EduCourseDescriptionService;
 import com.yqj.serviceedu.service.EduCourseService;
@@ -79,5 +80,12 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         EduCourseDescription eduCourseDescription = new EduCourseDescription();
         BeanUtils.copyProperties(courseInfo,eduCourseDescription);
         descriptionService.updateById(eduCourseDescription);
+    }
+
+    //根据课程id查询课程确认信息
+    @Override
+    public CoursePublishVo publishCourseInfo(String id) {
+        CoursePublishVo coursePublishInfo = baseMapper.getCoursePublishInfo(id);
+        return coursePublishInfo;
     }
 }

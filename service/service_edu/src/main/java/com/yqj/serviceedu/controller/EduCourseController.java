@@ -3,6 +3,7 @@ package com.yqj.serviceedu.controller;
 
 import com.yqj.commonutils.R;
 import com.yqj.serviceedu.entity.vo.CourseInfo;
+import com.yqj.serviceedu.entity.vo.CoursePublishVo;
 import com.yqj.serviceedu.service.EduCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,13 @@ public class EduCourseController {
     public R updateCourse(@RequestBody CourseInfo courseInfo){
         courseService.updateCourse(courseInfo);
         return R.ok();
+    }
+
+    //根据课程id查询课程确认信息
+    @GetMapping("getPublishCourseInfo/{id}")
+    public R getPublishCourseInfo(@PathVariable String id){
+        CoursePublishVo coursePublishVo = courseService.publishCourseInfo(id);
+        return R.ok().data("publishCourse",coursePublishVo);
     }
 }
 

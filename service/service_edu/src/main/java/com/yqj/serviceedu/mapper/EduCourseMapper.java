@@ -2,6 +2,7 @@ package com.yqj.serviceedu.mapper;
 
 import com.yqj.serviceedu.entity.EduCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yqj.serviceedu.entity.vo.CoursePublishVo;
 
 /**
  * <p>
@@ -13,4 +14,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface EduCourseMapper extends BaseMapper<EduCourse> {
 
+    //获取展示数据
+    public CoursePublishVo getCoursePublishInfo(String courseId);
 }
