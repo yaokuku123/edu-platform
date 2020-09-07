@@ -2,6 +2,7 @@ package com.yqj.serviceedu.controller;
 
 
 import com.yqj.commonutils.R;
+import com.yqj.serviceedu.entity.EduCourse;
 import com.yqj.serviceedu.entity.vo.CourseInfo;
 import com.yqj.serviceedu.entity.vo.CoursePublishVo;
 import com.yqj.serviceedu.service.EduCourseService;
@@ -50,6 +51,16 @@ public class EduCourseController {
     public R getPublishCourseInfo(@PathVariable String id){
         CoursePublishVo coursePublishVo = courseService.publishCourseInfo(id);
         return R.ok().data("publishCourse",coursePublishVo);
+    }
+
+    //发布课程
+    @PostMapping("publishCourse/{id}")
+    public R publishCourse(@PathVariable String id){
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(id);
+        eduCourse.setStatus("Normal"); //表示课程发布
+        courseService.updateById(eduCourse);
+        return R.ok();
     }
 }
 
