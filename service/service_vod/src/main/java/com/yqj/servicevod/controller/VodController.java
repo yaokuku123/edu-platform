@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * Copyright(C),2019-2020,XXX公司
  * FileName: VodController
@@ -31,6 +33,13 @@ public class VodController {
     @DeleteMapping("deleteVideo/{id}")
     public R deleteVideo(@PathVariable String id){
         vodService.deleteVideo(id);
+        return R.ok();
+    }
+
+    //根据多个id批量删除阿里云视频
+    @DeleteMapping("delete-batch")
+    public R deleteBatch(@RequestParam("videoIdList") List<String> videoIdList){
+        vodService.deleteBatch(videoIdList);
         return R.ok();
     }
 }

@@ -11,10 +11,12 @@ import com.yqj.servicebase.exception.MySystemException;
 import com.yqj.servicevod.service.VodService;
 import com.yqj.servicevod.utils.InitVodClient;
 import com.yqj.servicevod.utils.VodPropertiesUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Copyright(C),2019-2020,XXX公司
@@ -61,6 +63,22 @@ public class VodServiceImpl implements VodService {
             request.setVideoIds(id);
             client.getAcsResponse(request);
         } catch (ClientException e) {
+            e.printStackTrace();
+            throw new MySystemException(20001,"删除视频失败");
+        }
+    }
+
+    //根据多个id批量删除阿里云视频
+    @Override
+    public void deleteBatch(List<String> videoIdList) {
+        try {
+            DefaultAcsClient client = InitVodClient.initVodClient(VodPropertiesUtils.KEY_ID, VodPropertiesUtils.KEY_SECRET);
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            //将list转换为以，分割的字符串
+            String join = StringUtils.join(videoIdList.toArray(), ",");
+            request.setVideoIds(join);
+            client.getAcsResponse(request);
+        }catch (Exception e){
             e.printStackTrace();
             throw new MySystemException(20001,"删除视频失败");
         }

@@ -2,6 +2,8 @@ package com.yqj.servicevod.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * Copyright(C),2019-2020,XXX公司
  * FileName: VodService
@@ -14,4 +16,7 @@ public interface VodService {
 
     //根据id删除阿里云视频
     void deleteVideo(String id);
+
+    //根据多个id批量删除阿里云视频
+    void deleteBatch(List<String> videoIdList);
 }

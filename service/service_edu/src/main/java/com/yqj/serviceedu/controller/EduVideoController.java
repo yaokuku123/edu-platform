@@ -2,9 +2,11 @@ package com.yqj.serviceedu.controller;
 
 
 import com.yqj.commonutils.R;
+import com.yqj.serviceedu.client.VodClient;
 import com.yqj.serviceedu.entity.EduVideo;
 import com.yqj.serviceedu.service.EduVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,6 +24,9 @@ public class EduVideoController {
 
     @Autowired
     private EduVideoService videoService;
+
+    @Autowired
+    private VodClient vodClient;
 
     //增加小节信息
     @PostMapping("addVideo")
@@ -47,6 +52,13 @@ public class EduVideoController {
     //删除小节信息
     @DeleteMapping("{videoId}")
     public R deleteVideo(@PathVariable String videoId){
+        //获取视频id
+        EduVideo eduVideo = videoService.getById(videoId);
+        String videoSourceId = eduVideo.getVideoSourceId();
+        //判断不空则远程调用删除视频
+        if (!StringUtils.isEmpty(videoSourceId)){
+            vodClient.deleteVideo(videoSourceId);
+        }
         videoService.removeById(videoId);
         return R.ok();
     }
