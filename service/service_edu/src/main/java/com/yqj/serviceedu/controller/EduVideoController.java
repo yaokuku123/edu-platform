@@ -2,6 +2,7 @@ package com.yqj.serviceedu.controller;
 
 
 import com.yqj.commonutils.R;
+import com.yqj.servicebase.exception.MySystemException;
 import com.yqj.serviceedu.client.VodClient;
 import com.yqj.serviceedu.entity.EduVideo;
 import com.yqj.serviceedu.service.EduVideoService;
@@ -57,7 +58,10 @@ public class EduVideoController {
         String videoSourceId = eduVideo.getVideoSourceId();
         //判断不空则远程调用删除视频
         if (!StringUtils.isEmpty(videoSourceId)){
-            vodClient.deleteVideo(videoSourceId);
+            R result = vodClient.deleteVideo(videoSourceId);
+            if (result.getCode() == 20001){
+                throw new MySystemException(20001,"熔断器执行..调用失败");
+            }
         }
         videoService.removeById(videoId);
         return R.ok();

@@ -1,6 +1,7 @@
 package com.yqj.serviceedu.client;
 
 import com.yqj.commonutils.R;
+import com.yqj.serviceedu.client.impl.VodClientDradeImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +16,7 @@ import java.util.List;
  * Author: yaoqijun
  * Date: 2020/9/12 7:42
  */
-@FeignClient("service-vod")
+@FeignClient(name = "service-vod",fallback = VodClientDradeImpl.class)
 @Component
 public interface VodClient {
 
