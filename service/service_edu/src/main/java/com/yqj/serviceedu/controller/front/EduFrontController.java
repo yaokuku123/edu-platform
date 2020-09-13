@@ -5,6 +5,7 @@ import com.yqj.commonutils.R;
 import com.yqj.serviceedu.entity.EduCourse;
 import com.yqj.serviceedu.entity.EduTeacher;
 import com.yqj.serviceedu.service.EduCourseService;
+import com.yqj.serviceedu.service.EduFrontService;
 import com.yqj.serviceedu.service.EduTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,24 +27,15 @@ import java.util.List;
 public class EduFrontController {
 
     @Autowired
-    private EduCourseService courseService;
-
-    @Autowired
-    private EduTeacherService teacherService;
+    private EduFrontService frontService;
 
     //获取前8条热门课程和前4个热门教师
     @GetMapping("index")
     public R getHotCourseAndTeacher(){
         //根据id获取前8条热门课程
-        QueryWrapper<EduCourse> courseWrapper = new QueryWrapper<>();
-        courseWrapper.orderByDesc("id");
-        courseWrapper.last("limit 8");
-        List<EduCourse> courseList = courseService.list(courseWrapper);
+        List<EduCourse> courseList = frontService.getHotCourse();
         //根据id获取前4个热门教师
-        QueryWrapper<EduTeacher> teacherWrapper = new QueryWrapper<>();
-        teacherWrapper.orderByDesc("id");
-        teacherWrapper.last("limit 4");
-        List<EduTeacher> teacherList = teacherService.list(teacherWrapper);
+        List<EduTeacher> teacherList = frontService.getHotTeacher();
         return R.ok().data("courseList",courseList).data("teacherList",teacherList);
     }
 }
