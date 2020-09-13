@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class RegisterVo {
 
-    private String nickName;  //昵称
+    private String nickname;  //昵称
     private String mobile;  //手机号
     private String password; //密码
     private String code; //验证码

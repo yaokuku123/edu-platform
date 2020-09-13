@@ -69,7 +69,7 @@ public class UcenterMemberServiceImpl extends ServiceImpl<UcenterMemberMapper, U
         //获取数据
         String mobile = registerVo.getMobile();
         String code = registerVo.getCode();
-        String nickName = registerVo.getNickName();
+        String nickName = registerVo.getNickname();
         String password = registerVo.getPassword();
 
         //非空判断
